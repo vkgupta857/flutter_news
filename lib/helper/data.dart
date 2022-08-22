@@ -1,4 +1,10 @@
+import 'dart:async';
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+
 import 'package:flutter_news/models/category_model.dart';
+import 'package:flutter_news/models/article_model';
 
 List<CategoryModel> getCategories() {
   List<CategoryModel> myCategories = [];
@@ -54,4 +60,27 @@ List<CategoryModel> getCategories() {
   myCategories.add(categorieModel);
 
   return myCategories;
+}
+
+Future<List<Article>> getArticles() async {
+  List<Article> articles = [];
+  String url =
+      "https://newsapi.org/v2/everything?q=apple&from=2022-08-21&to=2022-08-21&sortBy=popularity&apiKey=3aaff2fa0a7d409eb5f8e4132dbc74a0";
+  var response = await http.get(Uri.parse(url));
+  if (response.statusCode == 200) {
+    print(response.body);
+
+    var jsonData = jsonDecode(response.body);
+
+    if (jsonData['status'] == 'ok') {
+      jsonData['articles'].forEach((element) {
+        var article = Article(
+            urlToImage: element['urlToImage'],
+            title: element['title'],
+            description: element['description']);
+        articles.add(article);
+      });
+    }
+  }
+  return articles;
 }

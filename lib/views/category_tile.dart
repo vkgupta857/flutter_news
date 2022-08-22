@@ -1,17 +1,21 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class CategoryTile extends StatelessWidget {
-  const CategoryTile({Key? key, this.imageURL, this.categoryName})
+  const CategoryTile(
+      {Key? key, required this.imageURL, required this.categoryName})
       : super(key: key);
 
-  final imageURL, categoryName;
+  final String imageURL, categoryName;
 
   final double width = 100, height = 60;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        print(categoryName);
+      },
       child: Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8), color: Colors.blue),
@@ -19,8 +23,8 @@ class CategoryTile extends StatelessWidget {
         child: Stack(children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
-            child: Image.network(
-              imageURL,
+            child: CachedNetworkImage(
+              imageUrl: imageURL,
               width: width,
               height: height,
               fit: BoxFit.fill,
