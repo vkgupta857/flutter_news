@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_news/views/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,21 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primaryColor: Colors.white),
-      home: const MyHome(),
-    );
-  }
-}
-
-class MyHome extends StatelessWidget {
-  const MyHome({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Flutter News"),
-      ),
-      body: Text("Flutter News"),
+      home: const Home(),
     );
   }
 }
