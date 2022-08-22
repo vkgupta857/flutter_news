@@ -14,10 +14,27 @@ class NewsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.symmetric(vertical: 4),
       child: Column(children: [
-        CachedNetworkImage(imageUrl: imageURL),
-        Text(cardTitle),
-        Text(desc)
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: CachedNetworkImage(imageUrl: imageURL),
+        ),
+        const SizedBox(
+          height: 4,
+        ),
+        Text(
+          cardTitle,
+          style: const TextStyle(fontSize: 18),
+        ),
+        const SizedBox(
+          height: 4,
+        ),
+        Text(
+          desc,
+          style: const TextStyle(color: Colors.grey),
+        ),
+        const Divider()
       ]),
     );
   }

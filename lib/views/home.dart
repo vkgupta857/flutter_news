@@ -58,11 +58,11 @@ class _HomeState extends State<Home> {
             )
           : SingleChildScrollView(
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 12),
+                padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: Column(
                   children: [
                     Container(
-                      margin: EdgeInsets.symmetric(vertical: 8),
+                      margin: const EdgeInsets.symmetric(vertical: 8),
                       height: 60,
                       child: ListView.builder(
                         itemBuilder: ((context, index) {
@@ -76,20 +76,16 @@ class _HomeState extends State<Home> {
                         itemCount: categories.length,
                       ),
                     ),
-                    SingleChildScrollView(
-                      child: Container(
-                        child: ListView.builder(
-                          itemBuilder: ((context, index) {
-                            return NewsCard(
-                                cardTitle: news[index].title ?? "",
-                                imageURL: news[index].urlToImage ?? "",
-                                desc: news[index].description ?? "");
-                          }),
-                          itemCount: news.length,
-                          shrinkWrap: true,
-                          physics: AlwaysScrollableScrollPhysics(),
-                        ),
-                      ),
+                    ListView.builder(
+                      itemBuilder: ((context, index) {
+                        return NewsCard(
+                            cardTitle: news[index].title ?? "",
+                            imageURL: news[index].urlToImage ?? "",
+                            desc: news[index].description ?? "");
+                      }),
+                      itemCount: news.length,
+                      shrinkWrap: true,
+                      physics: const ClampingScrollPhysics(),
                     ),
                   ],
                 ),
