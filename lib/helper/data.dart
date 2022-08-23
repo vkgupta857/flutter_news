@@ -65,10 +65,9 @@ List<CategoryModel> getCategories() {
 Future<List<Article>> getArticles() async {
   List<Article> articles = [];
   String url =
-      "https://newsapi.org/v2/everything?q=apple&from=2022-08-21&to=2022-08-21&sortBy=popularity&apiKey=3aaff2fa0a7d409eb5f8e4132dbc74a0";
+      "https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=3aaff2fa0a7d409eb5f8e4132dbc74a0";
   var response = await http.get(Uri.parse(url));
   if (response.statusCode == 200) {
-    print(response.body);
 
     var jsonData = jsonDecode(response.body);
 
