@@ -68,7 +68,6 @@ Future<List<Article>> getArticles() async {
       "https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=3aaff2fa0a7d409eb5f8e4132dbc74a0";
   var response = await http.get(Uri.parse(url));
   if (response.statusCode == 200) {
-
     var jsonData = jsonDecode(response.body);
 
     if (jsonData['status'] == 'ok') {
@@ -76,7 +75,8 @@ Future<List<Article>> getArticles() async {
         var article = Article(
             urlToImage: element['urlToImage'],
             title: element['title'],
-            description: element['description']);
+            description: element['description'],
+            url: element['url']);
         articles.add(article);
       });
     }

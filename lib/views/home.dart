@@ -40,6 +40,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0.0,
+        centerTitle: true,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
@@ -83,7 +84,8 @@ class _HomeState extends State<Home> {
                         return NewsCard(
                             cardTitle: news[index].title ?? "",
                             imageURL: news[index].urlToImage ?? "",
-                            desc: news[index].description ?? "");
+                            desc: news[index].description ?? "",
+                            articleUrl: news[index].url ?? "");
                       }),
                       itemCount: news.length,
                       shrinkWrap: true,
