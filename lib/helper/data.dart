@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter_news/models/category_model.dart';
-import 'package:flutter_news/models/article_model';
+import 'package:flutter_news/models/article_model.dart';
 
 List<CategoryModel> getCategories() {
   List<CategoryModel> myCategories = [];
@@ -62,10 +62,17 @@ List<CategoryModel> getCategories() {
   return myCategories;
 }
 
-Future<List<Article>> getArticles() async {
+Future<List<Article>> getArticles({String? category}) async {
   List<Article> articles = [];
-  String url =
-      "https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=3aaff2fa0a7d409eb5f8e4132dbc74a0";
+  String apiKey = "3aaff2fa0a7d409eb5f8e4132dbc74a0";
+  String url = "";
+  if (category == null) {
+    url = "https://newsapi.org/v2/top-headlines?country=in&apiKey=$apiKey";
+  } else {
+    url =
+        "https://newsapi.org/v2/top-headlines?country=in&category=$category&apiKey=$apiKey";
+  }
+
   var response = await http.get(Uri.parse(url));
   if (response.statusCode == 200) {
     var jsonData = jsonDecode(response.body);

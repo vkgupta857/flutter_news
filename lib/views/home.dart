@@ -4,11 +4,13 @@ import 'package:flutter_news/models/category_model.dart';
 import 'package:flutter_news/views/news_card.dart';
 import 'package:wakelock/wakelock.dart';
 
-import '../models/article_model';
+import 'package:flutter_news/models/article_model.dart';
 import 'category_tile.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  const Home({Key? key, this.category}) : super(key: key);
+
+  final String? category;
 
   @override
   State<Home> createState() => _HomeState();
@@ -19,16 +21,23 @@ class _HomeState extends State<Home> {
   List<Article> news = [];
   bool _loading = true;
 
+  String appBarTitle = "";
+
   @override
   void initState() {
     super.initState();
     Wakelock.enable();
-    categories = getCategories();
-    getNews();
+    if (widget.category == null) {
+      categories = getCategories();
+      appBarTitle = "Flutter";
+    } else {
+      appBarTitle = "${widget.category}";
+    }
+    getNews(category: widget.category);
   }
 
-  getNews() async {
-    news = await getArticles();
+  getNews({String? category}) async {
+    news = await getArticles(category: category);
     setState(() {
       _loading = false;
     });
@@ -39,17 +48,19 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
         elevation: 0.0,
         centerTitle: true,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          mainAxisSize: MainAxisSize.min,
+          children: [
             Text(
-              "Flutter",
-              style: TextStyle(color: Colors.black),
+              appBarTitle,
+              style: const TextStyle(color: Colors.black),
             ),
-            Text(
-              "News",
+            const Text(
+              " News", // space between two words
               style: TextStyle(color: Colors.blue),
             ),
           ],
@@ -64,21 +75,25 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: Column(
                   children: [
-                    Container(
-                      margin: const EdgeInsets.symmetric(vertical: 8),
-                      height: 60,
-                      child: ListView.builder(
-                        itemBuilder: ((context, index) {
-                          return CategoryTile(
-                            imageURL: categories[index].imageURL,
-                            categoryName: categories[index].categoryName,
-                          );
-                        }),
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: categories.length,
-                      ),
-                    ),
+                    widget.category != null
+                        ? const SizedBox(
+                            height: 0,
+                          )
+                        : Container(
+                            margin: const EdgeInsets.symmetric(vertical: 8),
+                            height: 60,
+                            child: ListView.builder(
+                              itemBuilder: ((context, index) {
+                                return CategoryTile(
+                                  imageURL: categories[index].imageURL,
+                                  categoryName: categories[index].categoryName,
+                                );
+                              }),
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: categories.length,
+                            ),
+                          ),
                     ListView.builder(
                       itemBuilder: ((context, index) {
                         return NewsCard(

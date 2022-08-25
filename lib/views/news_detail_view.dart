@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -21,7 +19,6 @@ class _NewsDetailViewState extends State<NewsDetailView> {
   @override
   void initState() {
     super.initState();
-    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
   }
 
   @override
@@ -41,15 +38,13 @@ class _NewsDetailViewState extends State<NewsDetailView> {
               style: TextStyle(color: Colors.black),
             ),
             Text(
-              "News",
+              " News", // space between two words
               style: TextStyle(color: Colors.blue),
             ),
           ],
         ),
       ),
       body: SizedBox(
-        // width: MediaQuery.of(context).size.width,
-        // height: MediaQuery.of(context).size.height,
         child: WebView(
           initialUrl: widget.articleUrl,
           javascriptMode: JavascriptMode.unrestricted,
