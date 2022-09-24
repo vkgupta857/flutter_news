@@ -9,6 +9,4 @@ A flutter app which shows news from [News API](https://newsapi.org/)
 - [wakelock](https://pub.dev/packages/wakelock)
 
 ## Snapshots
-![Home Page](/snapshots/s1.jpg)
-![Category Page](/snapshots/s2.jpg)
-![Detail Page](/snapshots/s3.jpg)
+![App Snapshot](/snapshots/snap1.png)
