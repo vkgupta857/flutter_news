@@ -62,7 +62,7 @@ class Article {
 
   Article.fromJson(Map<String, dynamic> json) {
     _source =
-        json['source'] != null ? new Source.fromJson(json['source']) : null;
+        json['source'] != null ? Source.fromJson(json['source']) : null;
     _author = json['author'];
     _title = json['title'];
     _description = json['description'];
@@ -73,17 +73,17 @@ class Article {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this._source != null) {
-      data['source'] = this._source!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (_source != null) {
+      data['source'] = _source!.toJson();
     }
-    data['author'] = this._author;
-    data['title'] = this._title;
-    data['description'] = this._description;
-    data['url'] = this._url;
-    data['urlToImage'] = this._urlToImage;
-    data['publishedAt'] = this._publishedAt;
-    data['content'] = this._content;
+    data['author'] = _author;
+    data['title'] = _title;
+    data['description'] = _description;
+    data['url'] = _url;
+    data['urlToImage'] = _urlToImage;
+    data['publishedAt'] = _publishedAt;
+    data['content'] = _content;
     return data;
   }
 }
@@ -94,10 +94,10 @@ class Source {
 
   Source({String? id, String? name}) {
     if (id != null) {
-      this._id = id;
+      _id = id;
     }
     if (name != null) {
-      this._name = name;
+      _name = name;
     }
   }
 
@@ -112,9 +112,9 @@ class Source {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this._id;
-    data['name'] = this._name;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = _id;
+    data['name'] = _name;
     return data;
   }
 }

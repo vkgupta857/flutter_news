@@ -29,10 +29,10 @@ class _NewsDetailViewState extends State<NewsDetailView> {
         foregroundColor: Colors.black,
         elevation: 0.0,
         centerTitle: true,
-        title: Row(
+        title: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
-          children: const [
+          children: [
             Text(
               "Flutter",
               style: TextStyle(color: Colors.black),
