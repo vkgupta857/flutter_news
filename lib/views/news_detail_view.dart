@@ -16,9 +16,28 @@ class _NewsDetailViewState extends State<NewsDetailView> {
     duration: Duration(milliseconds: 500),
   );
 
+  var webViewController = WebViewController();
+
   @override
   void initState() {
     super.initState();
+    webViewController.loadRequest(Uri.parse(widget.articleUrl));
+    webViewController.setJavaScriptMode(JavaScriptMode.unrestricted);
+    webViewController.setNavigationDelegate(
+      NavigationDelegate(
+        onWebResourceError:(error) {
+          ScaffoldMessenger.of(context).showSnackBar(errorSnackBar);
+          Navigator.pop(context);
+        },
+      )
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    webViewController.clearCache();
+    webViewController.clearLocalStorage();
   }
 
   @override
@@ -45,14 +64,7 @@ class _NewsDetailViewState extends State<NewsDetailView> {
         ),
       ),
       body: SizedBox(
-        child: WebView(
-          initialUrl: widget.articleUrl,
-          javascriptMode: JavascriptMode.unrestricted,
-          onWebResourceError: (error) {
-            ScaffoldMessenger.of(context).showSnackBar(errorSnackBar);
-            Navigator.pop(context);
-          },
-        ),
+        child: WebViewWidget(controller: webViewController,),
       ),
     );
   }
